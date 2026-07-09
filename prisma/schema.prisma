@@ -1,0 +1,57 @@
+// Prisma schema for the Monomoy Shootout silent auction app.
+// Local dev: run Postgres via `docker compose up -d db` (see docker-compose.yml).
+// Production: point DATABASE_URL at a hosted Postgres (Neon, Supabase, Vercel Postgres, etc).
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ItemStatus {
+  DRAFT
+  OPEN
+  CLOSED
+}
+
+model Item {
+  id            String     @id @default(cuid())
+  slug          String     @unique
+  name          String
+  description   String
+  imageUrl      String?
+  donatedBy     String?
+  minBidCents   Int
+  incrementCents Int       @default(500)
+  status        ItemStatus @default(DRAFT)
+  sortOrder     Int        @default(0)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  bids          Bid[]
+
+  @@index([status])
+}
+
+model Bid {
+  id          String   @id @default(cuid())
+  itemId      String
+  item        Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  amountCents Int
+  bidderName  String
+  bidderEmail String
+  bidderPhone String?
+  createdAt   DateTime @default(now())
+
+  @@index([itemId, amountCents])
+}
+
+model EventSettings {
+  id          Int      @id @default(1)
+  eventName   String   @default("Monomoy Shootout")
+  biddingOpen Boolean  @default(true)
+  updatedAt   DateTime @updatedAt
+}
