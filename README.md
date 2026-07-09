@@ -80,11 +80,10 @@ Recommended: **Vercel** for hosting + **Neon** or **Supabase** for a free hosted
    - `ADMIN_PASSWORD` — your event admin password
    - `SESSION_SECRET` — a random secret (`openssl rand -base64 32`)
    - `NEXT_PUBLIC_APP_URL` — your production URL (e.g. `https://monomoy-shootout-auction.vercel.app`), used to build the QR code links
-4. Before the first deploy (or via Vercel's build command), run migrations against the production database:
-   ```bash
-   DATABASE_URL="<production-url>" npx prisma migrate deploy
-   ```
-5. Deploy. Log in to `/admin` with your `ADMIN_PASSWORD` and add your items.
+4. Deploy (or redeploy, if you already imported the project). The build command (`prisma migrate deploy && next build`) applies any pending database migrations automatically before building — you don't need to run migrations by hand, on this deploy or any future one.
+5. Log in to `/admin` with your `ADMIN_PASSWORD` and add your items.
+
+> If a deploy ever fails with a database connection error, double check `DATABASE_URL` is set correctly in the Vercel project's environment variables and that the database is reachable (e.g. Neon's free tier can auto-suspend an idle database, which wakes back up on the next connection attempt).
 
 Any other Node.js host that supports Next.js (Railway, Render, Fly.io, etc.) works the same way — just make sure `DATABASE_URL` points at a real, persistent Postgres instance and that migrations have been applied.
 
