@@ -15,10 +15,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
-        <header className="border-b border-slate-200 bg-white">
+        <header className="bg-slate-900 border-b border-slate-700">
           <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
-            <Link href="/" className="text-lg font-bold tracking-tight text-sky-900">
-              🎣 Monomoy Shootout <span className="font-normal text-slate-500">Auction</span>
+            <Link href="/" className="flex items-center gap-2 font-black tracking-wide text-white">
+              <span className="text-xl">🎣</span> Monomoy Shootout{" "}
+              <span className="font-normal text-slate-400">Auction</span>
             </Link>
           </div>
         </header>

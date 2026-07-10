@@ -29,20 +29,20 @@ export default async function QrCodesPage() {
   return (
     <div>
       <div className="mb-4 flex items-center justify-between print:hidden">
-        <Link href="/admin" className="text-sm text-sky-900 hover:underline">
+        <Link href="/admin" className="text-sm text-sky-600 hover:underline">
           ← Back to admin
         </Link>
         <PrintButton />
       </div>
-      <h1 className="mb-6 text-2xl font-bold print:hidden">QR codes</h1>
+      <h1 className="mb-6 text-2xl font-black text-slate-800 print:hidden">QR codes</h1>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 print:grid-cols-2">
         {cards.map(({ item, url, qrDataUrl }) => (
           <div
             key={item.id}
-            className="flex flex-col items-center gap-2 rounded-lg border border-slate-200 bg-white p-6 text-center break-inside-avoid print:border-black"
+            className="flex flex-col items-center gap-2 rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm break-inside-avoid print:border-black print:shadow-none"
           >
-            <h2 className="text-lg font-semibold">{item.name}</h2>
+            <h2 className="text-lg font-bold text-slate-800">{item.name}</h2>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={qrDataUrl} alt={`QR code for ${item.name}`} className="h-56 w-56" />
             <p className="break-all text-xs text-slate-400">{url}</p>

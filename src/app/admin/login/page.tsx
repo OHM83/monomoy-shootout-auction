@@ -10,10 +10,10 @@ export default function AdminLoginPage() {
 
   return (
     <div className="mx-auto max-w-sm">
-      <h1 className="mb-4 text-xl font-bold">Admin login</h1>
-      <form action={formAction} className="space-y-3 rounded-lg border border-slate-200 bg-white p-4">
+      <h1 className="mb-4 text-xl font-black text-slate-800">Admin login</h1>
+      <form action={formAction} className="space-y-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-slate-700">
+          <label htmlFor="password" className="field-label">
             Password
           </label>
           <input
@@ -22,15 +22,15 @@ export default function AdminLoginPage() {
             type="password"
             required
             autoFocus
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
+            className="field-input"
           />
         </div>
-        {state.error && <p className="text-sm text-red-600">{state.error}</p>}
-        <button
-          type="submit"
-          disabled={pending}
-          className="w-full rounded-md bg-sky-900 px-4 py-2 font-semibold text-white transition hover:bg-sky-800 disabled:opacity-50"
-        >
+        {state.error && (
+          <div className="bg-red-50 border border-red-300 text-red-700 rounded-xl px-4 py-3 text-sm font-medium">
+            {state.error}
+          </div>
+        )}
+        <button type="submit" disabled={pending} className="btn-primary w-full">
           {pending ? "Signing in…" : "Sign in"}
         </button>
       </form>

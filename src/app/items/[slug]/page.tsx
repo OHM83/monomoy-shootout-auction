@@ -29,7 +29,7 @@ export default async function ItemPage({
 
   return (
     <div>
-      <Link href="/" className="mb-4 inline-block text-sm text-sky-900 hover:underline">
+      <Link href="/" className="mb-4 inline-block text-sm text-sky-600 hover:underline">
         ← Back to all items
       </Link>
 
@@ -38,22 +38,22 @@ export default async function ItemPage({
         <img
           src={item.imageUrl}
           alt={item.name}
-          className="mb-4 max-h-80 w-full rounded-lg object-cover"
+          className="mb-4 max-h-80 w-full rounded-2xl object-cover"
         />
       ) : null}
 
-      <h1 className="text-2xl font-bold">{item.name}</h1>
+      <h1 className="text-2xl font-black text-slate-800">{item.name}</h1>
       {item.donatedBy && (
         <p className="mt-1 text-sm text-slate-500">Donated by {item.donatedBy}</p>
       )}
       <p className="mt-3 whitespace-pre-line text-slate-700">{item.description}</p>
 
-      <div className="mt-5 rounded-lg bg-slate-100 p-4">
+      <div className="mt-5 rounded-2xl bg-white border border-slate-200 p-4 shadow-sm">
         <div className="flex items-baseline justify-between">
           <span className="text-sm text-slate-500">
             {topBid ? "Current high bid" : "Starting bid"}
           </span>
-          <span className="text-xl font-bold text-sky-900">{formatCents(high)}</span>
+          <span className="text-xl font-black text-navy-900">{formatCents(high)}</span>
         </div>
         {topBid && (
           <p className="mt-1 text-xs text-slate-500">
@@ -67,7 +67,7 @@ export default async function ItemPage({
         {item.status === "OPEN" ? (
           <BidForm itemSlug={item.slug} minimumNextBidDollars={nextMin / 100} />
         ) : (
-          <div className="rounded-lg border border-slate-200 bg-white p-4 text-center text-slate-500">
+          <div className="rounded-2xl border border-slate-200 bg-white p-4 text-center text-slate-500">
             Bidding is closed for this item.
           </div>
         )}

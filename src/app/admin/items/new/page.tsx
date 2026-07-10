@@ -10,7 +10,7 @@ export default async function NewItemPage() {
 
   return (
     <div className="mx-auto max-w-lg">
-      <h1 className="mb-4 text-xl font-bold">Add item</h1>
+      <h1 className="mb-4 text-xl font-black text-slate-800">Add item</h1>
       <ItemForm action={createItemAction} submitLabel="Create item" />
     </div>
   );

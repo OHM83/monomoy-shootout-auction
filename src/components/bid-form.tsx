@@ -16,9 +16,10 @@ export function BidForm({
 
   if (state.success) {
     return (
-      <div className="rounded-lg border border-green-200 bg-green-50 p-4 text-green-800">
-        <p className="font-semibold">Bid placed!</p>
-        <p className="text-sm">
+      <div className="rounded-2xl bg-white shadow-lg p-6 text-center space-y-2">
+        <div className="text-4xl">🎣</div>
+        <h2 className="text-xl font-black text-slate-800">Bid placed!</h2>
+        <p className="text-slate-600">
           You&apos;re currently the high bidder. Thanks for supporting the Monomoy Shootout.
         </p>
       </div>
@@ -26,11 +27,11 @@ export function BidForm({
   }
 
   return (
-    <form action={formAction} className="space-y-3 rounded-lg border border-slate-200 bg-white p-4">
+    <form action={formAction} className="space-y-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
       <input type="hidden" name="itemSlug" value={itemSlug} />
 
       <div>
-        <label htmlFor="amount" className="block text-sm font-medium text-slate-700">
+        <label htmlFor="amount" className="field-label">
           Your bid (USD)
         </label>
         <input
@@ -41,55 +42,38 @@ export function BidForm({
           min={minimumNextBidDollars}
           defaultValue={minimumNextBidDollars}
           required
-          className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-lg"
+          className="field-input text-lg"
         />
       </div>
 
       <div>
-        <label htmlFor="bidderName" className="block text-sm font-medium text-slate-700">
+        <label htmlFor="bidderName" className="field-label">
           Name
         </label>
-        <input
-          id="bidderName"
-          name="bidderName"
-          type="text"
-          required
-          className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
-        />
+        <input id="bidderName" name="bidderName" type="text" required className="field-input" />
       </div>
 
       <div>
-        <label htmlFor="bidderEmail" className="block text-sm font-medium text-slate-700">
+        <label htmlFor="bidderEmail" className="field-label">
           Email
         </label>
-        <input
-          id="bidderEmail"
-          name="bidderEmail"
-          type="email"
-          required
-          className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
-        />
+        <input id="bidderEmail" name="bidderEmail" type="email" required className="field-input" />
       </div>
 
       <div>
-        <label htmlFor="bidderPhone" className="block text-sm font-medium text-slate-700">
+        <label htmlFor="bidderPhone" className="field-label">
           Phone (optional)
         </label>
-        <input
-          id="bidderPhone"
-          name="bidderPhone"
-          type="tel"
-          className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
-        />
+        <input id="bidderPhone" name="bidderPhone" type="tel" className="field-input" />
       </div>
 
-      {state.error && <p className="text-sm text-red-600">{state.error}</p>}
+      {state.error && (
+        <div className="bg-red-50 border border-red-300 text-red-700 rounded-xl px-4 py-3 text-sm font-medium">
+          {state.error}
+        </div>
+      )}
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="w-full rounded-md bg-sky-900 px-4 py-2 font-semibold text-white transition hover:bg-sky-800 disabled:opacity-50"
-      >
+      <button type="submit" disabled={pending} className="btn-primary w-full">
         {pending ? "Placing bid…" : "Place bid"}
       </button>
     </form>

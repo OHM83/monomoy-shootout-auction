@@ -19,17 +19,17 @@ export default async function WinnersPage() {
 
   return (
     <div>
-      <Link href="/admin" className="mb-4 inline-block text-sm text-sky-900 hover:underline">
+      <Link href="/admin" className="mb-4 inline-block text-sm text-sky-600 hover:underline">
         ← Back to admin
       </Link>
-      <h1 className="mb-1 text-2xl font-bold">Winners report</h1>
+      <h1 className="mb-1 text-2xl font-black text-slate-800">Winners report</h1>
       <p className="mb-6 text-sm text-slate-500">
         Highest bidder for each item with at least one bid, for collecting payment.
       </p>
 
-      <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
         <table className="w-full text-left text-sm">
-          <thead className="bg-slate-50 text-xs uppercase text-slate-500">
+          <thead className="bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-500">
             <tr>
               <th className="px-4 py-2">Item</th>
               <th className="px-4 py-2">Status</th>
@@ -44,7 +44,7 @@ export default async function WinnersPage() {
               const winner = item.bids[0];
               return (
                 <tr key={item.id} className="border-t border-slate-100">
-                  <td className="px-4 py-2 font-medium">{item.name}</td>
+                  <td className="px-4 py-2 font-medium text-slate-800">{item.name}</td>
                   <td className="px-4 py-2">{item.status}</td>
                   <td className="px-4 py-2">{formatCents(winner.amountCents)}</td>
                   <td className="px-4 py-2">{winner.bidderName}</td>

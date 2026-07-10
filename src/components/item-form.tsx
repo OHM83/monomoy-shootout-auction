@@ -25,9 +25,9 @@ export function ItemForm({
   const [state, formAction, pending] = useActionState(action, initialState);
 
   return (
-    <form action={formAction} className="space-y-4 rounded-lg border border-slate-200 bg-white p-4">
+    <form action={formAction} className="space-y-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-slate-700">
+        <label htmlFor="name" className="field-label">
           Item name
         </label>
         <input
@@ -36,12 +36,12 @@ export function ItemForm({
           type="text"
           required
           defaultValue={defaultValues?.name}
-          className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
+          className="field-input"
         />
       </div>
 
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-slate-700">
+        <label htmlFor="description" className="field-label">
           Description
         </label>
         <textarea
@@ -50,12 +50,12 @@ export function ItemForm({
           required
           rows={4}
           defaultValue={defaultValues?.description}
-          className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
+          className="field-input resize-none"
         />
       </div>
 
       <div>
-        <label htmlFor="imageUrl" className="block text-sm font-medium text-slate-700">
+        <label htmlFor="imageUrl" className="field-label">
           Image URL (optional)
         </label>
         <input
@@ -64,12 +64,12 @@ export function ItemForm({
           type="url"
           placeholder="https://…"
           defaultValue={defaultValues?.imageUrl}
-          className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
+          className="field-input"
         />
       </div>
 
       <div>
-        <label htmlFor="donatedBy" className="block text-sm font-medium text-slate-700">
+        <label htmlFor="donatedBy" className="field-label">
           Donated by (optional)
         </label>
         <input
@@ -77,13 +77,13 @@ export function ItemForm({
           name="donatedBy"
           type="text"
           defaultValue={defaultValues?.donatedBy}
-          className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
+          className="field-input"
         />
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label htmlFor="minBid" className="block text-sm font-medium text-slate-700">
+          <label htmlFor="minBid" className="field-label">
             Starting bid (USD)
           </label>
           <input
@@ -94,11 +94,11 @@ export function ItemForm({
             min={0.01}
             required
             defaultValue={defaultValues?.minBid}
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
+            className="field-input"
           />
         </div>
         <div>
-          <label htmlFor="increment" className="block text-sm font-medium text-slate-700">
+          <label htmlFor="increment" className="field-label">
             Bid increment (USD)
           </label>
           <input
@@ -109,20 +109,20 @@ export function ItemForm({
             min={0.01}
             required
             defaultValue={defaultValues?.increment ?? 5}
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
+            className="field-input"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="status" className="block text-sm font-medium text-slate-700">
+        <label htmlFor="status" className="field-label">
           Status
         </label>
         <select
           id="status"
           name="status"
           defaultValue={defaultValues?.status ?? "DRAFT"}
-          className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
+          className="field-input cursor-pointer"
         >
           <option value="DRAFT">Draft (hidden from guests)</option>
           <option value="OPEN">Open (accepting bids)</option>
@@ -130,13 +130,13 @@ export function ItemForm({
         </select>
       </div>
 
-      {state.error && <p className="text-sm text-red-600">{state.error}</p>}
+      {state.error && (
+        <div className="bg-red-50 border border-red-300 text-red-700 rounded-xl px-4 py-3 text-sm font-medium">
+          {state.error}
+        </div>
+      )}
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="w-full rounded-md bg-sky-900 px-4 py-2 font-semibold text-white transition hover:bg-sky-800 disabled:opacity-50"
-      >
+      <button type="submit" disabled={pending} className="btn-primary w-full">
         {pending ? "Saving…" : submitLabel}
       </button>
     </form>

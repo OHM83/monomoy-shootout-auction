@@ -14,7 +14,7 @@ export default async function HomePage() {
 
   if (items.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed border-slate-300 p-8 text-center text-slate-500">
+      <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-500">
         No items are open for bidding yet. Check back soon!
       </div>
     );
@@ -22,7 +22,7 @@ export default async function HomePage() {
 
   return (
     <div>
-      <h1 className="mb-1 text-2xl font-bold">Silent Auction Items</h1>
+      <h1 className="mb-1 text-2xl font-black text-slate-800">Silent Auction Items</h1>
       <p className="mb-6 text-sm text-slate-500">
         Tap an item to see details and place your bid.
       </p>
@@ -34,7 +34,7 @@ export default async function HomePage() {
             <li key={item.id}>
               <Link
                 href={`/items/${item.slug}`}
-                className="flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
+                className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-lg"
               >
                 {item.imageUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -50,16 +50,16 @@ export default async function HomePage() {
                 )}
                 <div className="flex flex-1 flex-col gap-1 p-4">
                   <div className="flex items-start justify-between gap-2">
-                    <h2 className="font-semibold text-slate-900">{item.name}</h2>
+                    <h2 className="font-bold text-slate-800">{item.name}</h2>
                     {item.status === "CLOSED" && (
-                      <span className="shrink-0 rounded bg-slate-800 px-2 py-0.5 text-xs font-medium text-white">
+                      <span className="shrink-0 rounded-lg bg-slate-800 px-2 py-0.5 text-xs font-medium text-white">
                         Closed
                       </span>
                     )}
                   </div>
                   <p className="mt-auto text-sm text-slate-500">
                     {bidLabel}:{" "}
-                    <span className="font-semibold text-sky-900">
+                    <span className="font-semibold text-sky-600">
                       {formatCents(currentHighBid(item, item.bids))}
                     </span>
                   </p>

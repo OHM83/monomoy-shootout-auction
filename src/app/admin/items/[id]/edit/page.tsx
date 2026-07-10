@@ -21,7 +21,7 @@ export default async function EditItemPage({
 
   return (
     <div className="mx-auto max-w-lg">
-      <h1 className="mb-4 text-xl font-bold">Edit item</h1>
+      <h1 className="mb-4 text-xl font-black text-slate-800">Edit item</h1>
       <ItemForm
         action={action}
         submitLabel="Save changes"
