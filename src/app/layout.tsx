@@ -17,9 +17,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
         <header className="bg-slate-900 border-b border-slate-700">
           <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
-            <Link href="/" className="flex items-center gap-2 font-black tracking-wide text-white">
-              <span className="text-xl">🎣</span> Monomoy Shootout{" "}
-              <span className="font-normal text-slate-400">Auction</span>
+            <Link href="/" className="flex items-center gap-2.5 font-black tracking-wide text-white">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.png" alt="Monomoy Shootout" className="h-10 w-10 shrink-0 object-contain" />
+              Monomoy Shootout <span className="font-normal text-slate-400">Auction</span>
             </Link>
           </div>
         </header>
