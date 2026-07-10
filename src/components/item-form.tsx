@@ -1,7 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import type { ItemFormState } from "@/app/actions/items";
+import { compressImageToDataUrl } from "@/lib/compress-image";
 
 const initialState: ItemFormState = {};
 
@@ -23,6 +24,25 @@ export function ItemForm({
   };
 }) {
   const [state, formAction, pending] = useActionState(action, initialState);
+  const [imageValue, setImageValue] = useState(defaultValues?.imageUrl ?? "");
+  const [compressing, setCompressing] = useState(false);
+  const [photoError, setPhotoError] = useState<string | null>(null);
+
+  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setPhotoError(null);
+    setCompressing(true);
+    try {
+      const dataUrl = await compressImageToDataUrl(file);
+      setImageValue(dataUrl);
+    } catch {
+      setPhotoError("Couldn't process that photo. Try a different one, or paste an image URL below.");
+    } finally {
+      setCompressing(false);
+    }
+  }
 
   return (
     <form action={formAction} className="space-y-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
@@ -55,17 +75,41 @@ export function ItemForm({
       </div>
 
       <div>
-        <label htmlFor="imageUrl" className="field-label">
-          Image URL (optional)
-        </label>
+        <span className="field-label">Photo</span>
+        {imageValue && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={imageValue} alt="" className="mb-2 h-32 w-full rounded-xl object-cover" />
+        )}
+        <div className="flex flex-wrap items-center gap-3">
+          <label className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 cursor-pointer transition-colors">
+            {compressing ? "Processing…" : imageValue ? "Change photo" : "Upload photo"}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFile}
+              disabled={compressing}
+              className="hidden"
+            />
+          </label>
+          {imageValue && (
+            <button
+              type="button"
+              onClick={() => setImageValue("")}
+              className="text-sm text-red-600 hover:underline"
+            >
+              Remove photo
+            </button>
+          )}
+        </div>
+        {photoError && <p className="mt-1 text-sm text-red-600">{photoError}</p>}
         <input
-          id="imageUrl"
-          name="imageUrl"
           type="url"
-          placeholder="https://…"
-          defaultValue={defaultValues?.imageUrl}
-          className="field-input"
+          placeholder="…or paste an image URL"
+          value={imageValue.startsWith("data:") ? "" : imageValue}
+          onChange={(e) => setImageValue(e.target.value)}
+          className="field-input mt-2"
         />
+        <input type="hidden" name="imageUrl" value={imageValue} />
       </div>
 
       <div>
@@ -136,7 +180,7 @@ export function ItemForm({
         </div>
       )}
 
-      <button type="submit" disabled={pending} className="btn-primary w-full">
+      <button type="submit" disabled={pending || compressing} className="btn-primary w-full">
         {pending ? "Saving…" : submitLabel}
       </button>
     </form>

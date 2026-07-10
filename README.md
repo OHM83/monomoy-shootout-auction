@@ -61,7 +61,7 @@ Visit `http://localhost:3000` for the public bidding pages and `http://localhost
 
 ## Running the auction
 
-1. Before the event, log in to `/admin` and add each auction item (name, description, photo URL, starting bid, bid increment). Set status to **Open** when you're ready for guests to bid.
+1. Before the event, log in to `/admin` and add each auction item (name, description, photo, starting bid, bid increment). Set status to **Open** when you're ready for guests to bid. The photo field lets you upload straight from your phone or computer (it's resized and compressed in the browser before saving — no separate image host needed), or you can paste an image URL instead.
 2. Visit `/admin/qr`, print the page, and cut out one QR code per item to place next to it at the event.
 3. Guests scan the QR code, see the item and current bid, and submit their own bid with name/email/phone.
 4. To end the auction, either close bidding on individual items (edit item → status **Closed**) or flip the site-wide switch on `/admin`.
