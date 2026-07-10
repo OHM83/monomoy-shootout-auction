@@ -85,6 +85,18 @@ Recommended: **Vercel** for hosting + **Neon** or **Supabase** for a free hosted
 
 > If a deploy ever fails with a database connection error, double check `DATABASE_URL` is set correctly in the Vercel project's environment variables and that the database is reachable (e.g. Neon's free tier can auto-suspend an idle database, which wakes back up on the next connection attempt).
 
+### Photo storage (recommended, especially for venue WiFi)
+
+By default, if no photo storage is configured, uploaded item photos are compressed and embedded directly into the page. That works with zero setup, but makes pages heavier to load — noticeable on slow venue WiFi with more than a handful of items.
+
+To fix this, enable **Vercel Blob** storage (free tier is generous for an event like this):
+
+1. In your Vercel project, go to the **Storage** tab → **Create Database** → **Blob**.
+2. Connect it to this project. Vercel automatically adds a `BLOB_READ_WRITE_TOKEN` environment variable — no manual copying needed.
+3. Redeploy. New photo uploads will now go to real hosted files instead of being embedded, so pages load faster and photos are cached by the browser across page views.
+
+This is optional — the app works fine without it, just with heavier pages as more photos are added.
+
 Any other Node.js host that supports Next.js (Railway, Render, Fly.io, etc.) works the same way — just make sure `DATABASE_URL` points at a real, persistent Postgres instance and that migrations have been applied.
 
 ## Project structure

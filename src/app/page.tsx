@@ -41,6 +41,7 @@ export default async function HomePage() {
                   <img
                     src={item.imageUrl}
                     alt={item.name}
+                    loading="lazy"
                     className="h-40 w-full object-cover"
                   />
                 ) : (

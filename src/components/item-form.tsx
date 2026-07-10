@@ -2,7 +2,8 @@
 
 import { useActionState, useState } from "react";
 import type { ItemFormState } from "@/app/actions/items";
-import { compressImageToDataUrl } from "@/lib/compress-image";
+import { uploadItemImageAction } from "@/app/actions/upload";
+import { compressImage, blobToDataUrl } from "@/lib/compress-image";
 
 const initialState: ItemFormState = {};
 
@@ -35,8 +36,19 @@ export function ItemForm({
     setPhotoError(null);
     setCompressing(true);
     try {
-      const dataUrl = await compressImageToDataUrl(file);
-      setImageValue(dataUrl);
+      const blob = await compressImage(file);
+      // Show an instant preview (and safe fallback value) while the upload is in flight.
+      setImageValue(await blobToDataUrl(blob));
+
+      const fd = new FormData();
+      fd.set("file", blob, "photo.jpg");
+      const result = await uploadItemImageAction(fd);
+      if ("url" in result) {
+        setImageValue(result.url);
+      } else if ("error" in result) {
+        setPhotoError("Couldn't upload to photo storage — saved a local copy instead.");
+      }
+      // "notConfigured" (no photo storage set up, e.g. local dev) silently keeps the local copy.
     } catch {
       setPhotoError("Couldn't process that photo. Try a different one, or paste an image URL below.");
     } finally {
