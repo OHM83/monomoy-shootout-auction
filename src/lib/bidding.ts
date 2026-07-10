@@ -1,8 +1,7 @@
 import type { Bid, Item } from "@/generated/prisma/client";
 
 export function currentHighBid(item: Item, bids: Bid[]): number {
-  const top = bids[0]?.amountCents;
-  return top ?? item.minBidCents - item.incrementCents;
+  return bids[0]?.amountCents ?? item.minBidCents;
 }
 
 export function minimumNextBid(item: Item, bids: Bid[]): number {
